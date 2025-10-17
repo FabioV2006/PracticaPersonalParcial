@@ -4,15 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class JuezDTO {
-    private Long id;
+public class JuezCombateCountDTO {
     private String nombreJuez;
-    private String aniosExperiencia;
-    private String categoria;
-
+    private Long cantidadCombates;
 }

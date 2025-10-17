@@ -8,18 +8,17 @@ import org.upc.apivvreynaldo.repository.JuezRepository;
 
 @Service
 public class JuezService {
-    private final JuezRepository JuezRepositurory;
-    public JuezService(JuezRepository juezRepository) {this.JuezRepositurory = juezRepository; }
+    private final JuezRepository juezRepository;
+    private final ModelMapper modelMapper;
 
-    public JuezDTO Registrar (JuezDTO juezDTO) {
-        //Validaciones
+    public JuezService(JuezRepository juezRepository) {
+        this.juezRepository = juezRepository;
+        this.modelMapper = new ModelMapper();
+    }
 
-        ModelMapper modelMapper = new ModelMapper();
-        Juez juez = modelMapper.map(juezDTO,Juez.class);
-        juez = JuezRepositurory.save(juez);
-        return modelMapper.map(juez, JuezDTO.class);
-
-
+    public Juez registrarJuez(JuezDTO juezDTO) {
+        Juez juez = modelMapper.map(juezDTO, Juez.class);
+        return juezRepository.save(juez);
     }
 
 }

@@ -12,7 +12,7 @@ import org.upc.apivvreynaldo.model.Juez;
 import org.upc.apivvreynaldo.service.JuezService;
 
 @RestController
-@RequestMapping("/Reynaldo")
+@RequestMapping("/reynaldo")
 public class JuezController {
 
     private final JuezService juezService;
@@ -20,9 +20,12 @@ public class JuezController {
     public JuezController(JuezService juezService) {
         this.juezService = juezService;
     }
-    @PostMapping("/registrar")
-    @PreAuthorize("hasRole('CLIMA')")
-    public ResponseEntity<JuezDTO> registrarJuez(@Valid @RequestBody JuezDTO juezDTO){
-        return new ResponseEntity<>(juezService.Registrar(juezDTO), HttpStatus.CREATED);
+
+    @PostMapping
+    @PreAuthorize("hasRole('ORGANIZADOR')") // ROL CORREGIDO
+    public ResponseEntity<String> registrarJuez(@Valid @RequestBody JuezDTO juezDTO) {
+        Juez juezRegistrado = juezService.registrarJuez(juezDTO);
+        String mensaje = "Se registró correctamente con ID " + juezRegistrado.getIdJuez();
+        return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
     }
 }
